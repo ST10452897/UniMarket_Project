@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="primary_green">#176B5B</color>
+    <color name="dark_green">#124E43</color>
+    <color name="light_green_container">#E3EFE9</color>
+    <color name="light_green_bg">#EFF7F3</color>
+    <color name="app_background">#F7F8F5</color>
+    <color name="card_background">#FFFFFF</color>
+
+    <color name="category_purple_bg">#EDE7F6</color>
+    <color name="category_purple_icon">#673AB7</color>
+    <color name="category_amber_bg">#FFF3E0</color>
+    <color name="category_amber_icon">#F57C00</color>
+    <color name="category_green_bg">#E8F5E9</color>
+    <color name="category_green_icon">#388E3C</color>
+    <color name="category_blue_bg">#E1F5FE</color>
+    <color name="category_blue_icon">#0288D1</color>
+
+    <color name="text_primary">#1C1B1F</color>
+    <color name="text_secondary">#625B71</color>
+    <color name="text_muted">#757575</color>
+    <color name="text_white">#FFFFFF</color>
+    <color name="text_white_translucent">#D0E3DD</color>
+
+    <color name="input_dark_bg">#1A5C50</color>
+    <color name="input_dark_border">#2A6D60</color>
+
+    <color name="badge_red">#E53935</color>
+    <color name="verified_green">#2E7D32</color>
+    <color name="chip_selected_bg">#124E43</color>
+    <color name="chip_unselected_bg">#EFEFEF</color>
+</resources>

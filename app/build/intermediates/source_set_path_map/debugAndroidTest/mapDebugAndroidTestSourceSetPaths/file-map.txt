@@ -1,0 +1,4 @@
+za.co.unimarket.test.app-androidTest-0 C:\Users\AM Nkuna\AndroidStudioProjects\UniMarket\app\build\generated\res\resValues\androidTest\debug
+za.co.unimarket.test.app-mergeDebugAndroidTestResources-1 C:\Users\AM Nkuna\AndroidStudioProjects\UniMarket\app\build\intermediates\incremental\debugAndroidTest\mergeDebugAndroidTestResources\merged.dir
+za.co.unimarket.test.app-mergeDebugAndroidTestResources-2 C:\Users\AM Nkuna\AndroidStudioProjects\UniMarket\app\build\intermediates\incremental\debugAndroidTest\mergeDebugAndroidTestResources\stripped.dir
+za.co.unimarket.test.app-debugAndroidTest-3 C:\Users\AM Nkuna\AndroidStudioProjects\UniMarket\app\build\intermediates\merged_res\debugAndroidTest\mergeDebugAndroidTestResources

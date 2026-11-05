@@ -1,21 +1,52 @@
-# UniMarket
+# UniMarket – Campus Marketplace
 
-Kotlin/XML Android student marketplace prototype for OPSC6312.
+## Project Overview
 
-## Included
-- Native Kotlin/XML Android app shell
-- Configurable REST API contract for auth, categories, listings, wishlist, messages, saved searches, and sync
-- Room, Retrofit, and Firebase Messaging dependencies ready for expansion
-- GitHub Actions build workflow
+UniMarket is an Android marketplace application designed to help university students discover, buy and sell second-hand items within their campus community.
 
-## Run
-Open `UniMarket` in Android Studio. The app is Kotlin/XML only. Set the API base URL in the Kotlin Retrofit service when connecting a hosted REST API.
+## Technologies
 
-## Endpoint contract
-`POST /api/auth/register`, `POST /api/auth/login`, `GET /api/categories`, `GET/POST /api/listings`, `GET/POST /api/wishlist`, `GET/POST /api/messages`, `POST /api/saved-searches`, and `POST /api/sync`.
+- Kotlin and XML – Android application
+- Android Studio – Development environment
+- ASP.NET Core Web API – Backend integration
+- Google Firebase Firestore – NoSQL database
+- Room – Local database
+- GitHub – Version control and collaboration
 
-## Release notes
-v1.0: initial UniMarket Kotlin/XML shell, Kotlin API contract, marketplace search interaction, and Android automation scaffold. Production hardening still requires database persistence, JWT validation, Firebase project configuration, image/blob storage, and final device testing.
+## Features
 
-## Evidence
-The provided brief images describe the UniMarket marketplace, required screens, REST API, offline synchronization, notifications, multilingual support, GitHub Actions, documentation, and Play Store preparation.
+The application includes marketplace browsing, product categories, search and filtering, wishlist, messaging screens, authentication screens and settings.
+
+The project also includes English and Sepedi language support and saved settings.
+
+**Integration status:** Features relying on backend authentication, Google SSO, online messaging, synchronisation and push notifications must be verified against the final integrated build before being described as fully operational.
+
+## How to Run
+
+1. Clone this GitHub repository.
+2. Open the Android project in Android Studio.
+3. Allow Gradle to sync.
+4. Build the application.
+5. Run it on an Android emulator or physical Android device.
+
+Online features require a configured, accessible API.
+
+## Development Team
+
+- Member 1: Android integration, authentication and navigation
+- Member 2: ASP.NET Core API and Firestore
+- Member 3: Google SSO, Room synchronisation and notifications
+- Member 4: Settings, Sepedi translation and language switching
+- Member 5: GitHub Actions, testing, documentation and release preparation
+
+## Video Demonstration
+
+Video link: [Add link when available]
+
+## Release Notes
+
+See RELEASE_NOTES.md for the updates since the prototype.
+
+## AI Usage
+
+See AI_USAGE.md for the AI assistance declaration.

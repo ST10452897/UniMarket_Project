@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">UniMarket</string>
+    <string name="nav_home">Gae</string>
+    <string name="nav_categories">Lebelela</string>
+    <string name="nav_wishlist">Dilo tše ke di ratago</string>
+    <string name="nav_messages">Melaetša</string>
+    <string name="nav_settings">Dipeakanyo</string>
+
+    <string name="login_welcome">O AMOGELWA GAPE</string>
+    <string name="login_email_label">Imeile ya moithuti</string>
+    <string name="login_password_label">Lentšuphetišo</string>
+    <string name="login_button">Tsena</string>
+
+    <string name="home_categories_title">Lebelela magoro</string>
+    <string name="home_fresh_listings">Dilo tše mpsha</string>
+    <string name="search_hint">Nyaka dipuku, didirišwa tša elektroniki...</string>
+
+    <string name="settings_multi_lang">Polelo ya go fetofetolana</string>
+    <string name="settings_enable_multi_lang">Šomiša dipolelo tše dingwe</string>
+    <string name="settings_select_lang">Kgetha polelo</string>
+    <string name="settings_notifications">Dikarolotheo</string>
+    <string name="settings_campus">Lefelo la khampase</string>
+    <string name="settings_privacy">Akhaonto le tshireletšo</string>
+</resources>

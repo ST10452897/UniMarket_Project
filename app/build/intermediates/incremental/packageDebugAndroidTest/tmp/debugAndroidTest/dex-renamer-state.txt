@@ -1,4 +1,0 @@
-#Tue Sep 22 19:33:37 SAST 2026
-base.0=C\:\\Users\\AM Nkuna\\AndroidStudioProjects\\UniMarket\\app\\build\\intermediates\\dex\\debugAndroidTest\\mergeProjectDexDebugAndroidTest\\0\\classes.dex
-path.0=0/classes.dex
-renamed.0=classes.dex

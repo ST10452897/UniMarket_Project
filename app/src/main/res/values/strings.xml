@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
     <string name="app_name">UniMarket</string>
     <string name="splash_badge">UM STUDENT MARKETPLACE</string>
     <string name="splash_tagline">BUY. SELL. CONNECT.</string>
@@ -64,14 +64,14 @@
     <string name="wishlist_title">Your wishlist</string>
     <string name="wishlist_subtitle">Keep an eye on the things you love. We\'ll notify you when similar items are posted.</string>
 
-    <string name="settings_title">Seti / Settings</string>
+    <string name="settings_title">Settings</string>
     <string name="settings_info">UniMarket is a verified campus community. Your school email ensures all exchange is among verified student profiles for your security and transparent listings. Safe interactions are prioritized.</string>
-    <string name="settings_multi_lang">Polelo ya go fetofetolana / Multi-language support</string>
-    <string name="settings_enable_multi_lang">Šomiša polelo tse dingwe / Enable multi-language</string>
-    <string name="settings_select_lang">Kgetha polelo / Select language</string>
-    <string name="settings_notifications">Dikarolotheo / Notifications</string>
-    <string name="settings_campus">Lefelo la khampase / Campus location</string>
-    <string name="settings_privacy">Akhaonto le setšididi / Account &amp; privacy</string>
+    <string name="settings_multi_lang">Multi-language support</string>
+    <string name="settings_enable_multi_lang">Enable multi-language</string>
+    <string name="settings_select_lang">Select language</string>
+    <string name="settings_notifications">Notifications</string>
+    <string name="settings_campus">Campus location</string>
+    <string name="settings_privacy">Account &amp; privacy</string>
 
     <string name="messages_title">Messages</string>
     <string name="messages_inbox">Inbox</string>

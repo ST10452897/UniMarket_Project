@@ -2,7 +2,6 @@ package za.co.unimarket.database
 
 import android.content.Context
 import android.util.Log
-import androidx.work.BackoffPolicy
 import androidx.work.Constraints
 import androidx.work.CoroutineWorker
 import androidx.work.ExistingWorkPolicy
@@ -13,14 +12,7 @@ import androidx.work.WorkerParameters
 import za.co.unimarket.network.ApiClient
 import za.co.unimarket.network.SyncActionDto
 import za.co.unimarket.network.SyncRequest
-import java.util.concurrent.TimeUnit
 
-/**
- * Member 3 — Offline Synchronisation Worker
- * Reads queued offline actions from Room (SyncActionDao) and synchronises them
- * with the ASP.NET Core / Firestore backend when network connectivity is restored.
- * Deletes local queued actions only after the server confirms receipt.
- */
 class OfflineSyncWorker(
     context: Context,
     params: WorkerParameters
@@ -30,27 +22,22 @@ class OfflineSyncWorker(
         val db = AppDatabase.getDatabase(applicationContext)
         val dao = db.syncActionDao()
 
-        val pending = try {
-            dao.getPendingSyncActions()
-        } catch (e: Exception) {
-            Log.e(TAG, "Failed to read pending sync actions from Room", e)
-            return Result.failure()
-        }
+        val pending = dao.getPendingSyncActions()
 
         if (pending.isEmpty()) {
-            Log.d(TAG, "Offline queue is empty. Nothing to synchronise.")
+            Log.d(TAG, "No pending offline actions to sync.")
             return Result.success()
         }
 
-        Log.d(TAG, "Attempting to synchronise ${pending.size} pending offline action(s)...")
-
         return try {
+            // The request format matches the backend API.
+            // Actions are only deleted after the server confirms them.
             val request = SyncRequest(
-                actions = pending.map { entity ->
+                actions = pending.map {
                     SyncActionDto(
-                        actionType = entity.actionType,
-                        entityId = entity.entityId,
-                        payloadJson = entity.payloadJson
+                        actionType = it.actionType,
+                        entityId = it.entityId,
+                        payloadJson = it.payloadJson
                     )
                 }
             )
@@ -58,16 +45,15 @@ class OfflineSyncWorker(
             val response = ApiClient.apiService.syncData(request)
 
             if (response.isSuccessful) {
-                val syncedIds = pending.map { it.id }
-                dao.deleteSyncActions(syncedIds)
-                Log.d(TAG, "Successfully synchronised and cleared ${syncedIds.size} offline action(s).")
+                dao.deleteSyncActions(pending.map { it.id })
+                Log.d(TAG, "Successfully synced and cleared ${pending.size} offline actions.")
                 Result.success()
             } else {
-                Log.w(TAG, "Backend returned HTTP ${response.code()} during sync. Scheduling retry.")
+                Log.w(TAG, "Server returned HTTP ${response.code()}, retrying later.")
                 Result.retry()
             }
         } catch (e: Exception) {
-            Log.e(TAG, "Network exception during offline sync. Will retry when online.", e)
+            Log.e(TAG, "Offline sync failed due to network error, retrying.", e)
             Result.retry()
         }
     }
@@ -77,29 +63,31 @@ class OfflineSyncWorker(
         private const val UNIQUE_WORK_NAME = "UniMarketOfflineSyncWork"
 
         /**
-         * Enqueues a one-time background sync work request that executes
-         * automatically as soon as the device has an active internet connection.
+         * Schedules a one-time background sync that executes automatically
+         * as soon as the device has an active network connection.
          */
         fun requestOfflineSync(context: Context) {
             val constraints = Constraints.Builder()
                 .setRequiredNetworkType(NetworkType.CONNECTED)
                 .build()
 
-            val workRequest = OneTimeWorkRequestBuilder<OfflineSyncWorker>()
+            val work = OneTimeWorkRequestBuilder<OfflineSyncWorker>()
                 .setConstraints(constraints)
-                .setBackoffCriteria(
-                    BackoffPolicy.EXPONENTIAL,
-                    15L,
-                    TimeUnit.SECONDS
-                )
                 .build()
 
-            WorkManager.getInstance(context.applicationContext).enqueueUniqueWork(
+            WorkManager.getInstance(context).enqueueUniqueWork(
                 UNIQUE_WORK_NAME,
                 ExistingWorkPolicy.REPLACE,
-                workRequest
+                work
             )
-            Log.d(TAG, "OfflineSyncWorker scheduled waiting for network connection.")
         }
     }
+}
+
+/**
+ * Top-level helper function matching the specification so callers can invoke
+ * requestOfflineSync(context) directly after queuing an offline action in Room.
+ */
+fun requestOfflineSync(context: Context) {
+    OfflineSyncWorker.requestOfflineSync(context)
 }

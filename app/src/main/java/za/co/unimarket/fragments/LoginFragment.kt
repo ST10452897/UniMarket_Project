@@ -43,9 +43,13 @@ class LoginFragment : Fragment() {
         }
 
         view.findViewById<LinearLayout>(R.id.btnGoogleLogin)?.setOnClickListener {
-            Toast.makeText(context, "Signing in with Google SSO...", Toast.LENGTH_SHORT).show()
-            (activity as? MainActivity)?.navigateToHome()
+            Toast.makeText(
+                requireContext(),
+                "Google sign-in is not configured yet",
+                Toast.LENGTH_LONG
+            ).show()
         }
+
 
         view.findViewById<Button>(R.id.btnLoginSubmit)?.setOnClickListener {
             val email = etEmail?.text?.toString()?.trim() ?: ""

@@ -14,6 +14,7 @@ class UniMarketRepository(
     private val apiService: UniMarketApiService = ApiClient.apiService
 ) {
 
+
     /** POST /api/auth/register */
     suspend fun register(
         studentId: String,
@@ -22,30 +23,27 @@ class UniMarketRepository(
         fullName: String,
         campus: String? = null
     ): Result<AuthResponse> = runCatching {
-        val request = RegisterRequest(studentId, email, password, fullName, campus)
+        val request = RegisterRequest(
+            studentId, email, password, fullName, campus
+        )
+
         val response = apiService.register(request)
-        if (response.isSuccessful && response.body() != null) {
-            val auth = response.body()!!
-            ApiClient.setAuthToken(auth.token)
-            auth
-        } else {
-            // Fallback for offline testing
-            AuthResponse(
-                token = "mock-jwt-token-reg-${System.currentTimeMillis()}",
-                userId = "u_${studentId.ifEmpty { "1001" }}",
-                email = email,
-                fullName = fullName,
-                campus = campus ?: "UP Hatfield"
-            ).also { ApiClient.setAuthToken(it.token) }
+
+        if (!response.isSuccessful) {
+            throw Exception(
+                "Registration failed: HTTP ${response.code()}"
+            )
         }
-    }.recover {
-        AuthResponse(
-            token = "mock-jwt-token-reg-offline",
-            userId = "u_offline",
-            email = email,
-            fullName = fullName,
-            campus = campus ?: "UP Hatfield"
-        ).also { ApiClient.setAuthToken(it.token) }
+
+        val auth = response.body()
+            ?: throw Exception("Empty registration response")
+
+        if (auth.token.isBlank()) {
+            throw Exception("No authentication token received")
+        }
+
+        ApiClient.setAuthToken(auth.token)
+        auth
     }
 
     /** POST /api/auth/login */
@@ -54,28 +52,24 @@ class UniMarketRepository(
         password: String
     ): Result<AuthResponse> = runCatching {
         val request = LoginRequest(email, password)
+
         val response = apiService.login(request)
-        if (response.isSuccessful && response.body() != null) {
-            val auth = response.body()!!
-            ApiClient.setAuthToken(auth.token)
-            auth
-        } else {
-            AuthResponse(
-                token = "mock-jwt-token-login-${System.currentTimeMillis()}",
-                userId = "u_student",
-                email = email,
-                fullName = email.substringBefore("@").replace(".", " ").replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString() },
-                campus = "UP Hatfield"
-            ).also { ApiClient.setAuthToken(it.token) }
+
+        if (!response.isSuccessful) {
+            throw Exception(
+                "Login failed: HTTP ${response.code()}"
+            )
         }
-    }.recover {
-        AuthResponse(
-            token = "mock-jwt-token-login-offline",
-            userId = "u_offline_student",
-            email = email,
-            fullName = "Campus Student",
-            campus = "UP Hatfield"
-        ).also { ApiClient.setAuthToken(it.token) }
+
+        val auth = response.body()
+            ?: throw Exception("Empty login response")
+
+        if (auth.token.isBlank()) {
+            throw Exception("No authentication token received")
+        }
+
+        ApiClient.setAuthToken(auth.token)
+        auth
     }
 
     /** GET /api/categories */

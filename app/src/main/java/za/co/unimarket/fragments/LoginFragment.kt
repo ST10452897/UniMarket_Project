@@ -16,7 +16,7 @@ import kotlinx.coroutines.launch
 import za.co.unimarket.MainActivity
 import za.co.unimarket.R
 import za.co.unimarket.UniMarketApi
-
+import za.co.unimarket.auth.GoogleAuthHelper
 class LoginFragment : Fragment() {
 
     override fun onCreateView(
@@ -43,8 +43,32 @@ class LoginFragment : Fragment() {
         }
 
         view.findViewById<LinearLayout>(R.id.btnGoogleLogin)?.setOnClickListener {
-            Toast.makeText(context, "Signing in with Google SSO...", Toast.LENGTH_SHORT).show()
-            (activity as? MainActivity)?.navigateToHome()
+            viewLifecycleOwner.lifecycleScope.launch {
+                val helper = GoogleAuthHelper(requireContext())
+
+                val result = helper.signInWithGoogle(
+                    webClientId = "YOUR_WEB_CLIENT_ID"
+                )
+
+                result.onSuccess { user ->
+                    Toast.makeText(
+                        requireContext(),
+                        "Google account selected: ${user.email}",
+                        Toast.LENGTH_LONG
+                    ).show()
+
+                    // Do not navigate to Home yet.
+                    // The ID token must be verified by the backend first.
+                }
+
+                result.onFailure { error ->
+                    Toast.makeText(
+                        requireContext(),
+                        error.message ?: "Google Sign-In failed",
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
+            }
         }
 
         view.findViewById<Button>(R.id.btnLoginSubmit)?.setOnClickListener {

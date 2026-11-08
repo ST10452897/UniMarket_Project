@@ -11,7 +11,7 @@ import java.util.concurrent.TimeUnit
  */
 object ApiClient {
 
-    private var baseUrl: String = "https://unimarket-api.azurewebsites.net/"
+    private var baseUrl: String = "http://172.16.36.188:5076/"
     private var authToken: String? = null
 
     fun setAuthToken(token: String?) {

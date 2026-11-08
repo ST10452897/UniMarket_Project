@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "za.co.unimarket.app-mergeDebugResources-54:/values-ldltr-v21/values-ldltr-v21.xml",
+            "outputFile": "za.co.unimarket.app-mergeDebugResources-57:/values-ldltr-v21/values-ldltr-v21.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\AM Nkuna\\.gradle\\caches\\9.3.0\\transforms\\49e0a70042da7315fb09c090695b3e68\\workspace\\transformed\\appcompat-1.7.0\\res\\values-ldltr-v21\\values-ldltr-v21.xml",
+                    "source": "C:\\Users\\karab\\.gradle\\caches\\9.3.0\\transforms\\49e0a70042da7315fb09c090695b3e68\\workspace\\transformed\\appcompat-1.7.0\\res\\values-ldltr-v21\\values-ldltr-v21.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",

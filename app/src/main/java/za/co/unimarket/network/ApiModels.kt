@@ -45,7 +45,7 @@ data class ListingDto(
     @SerializedName("category") val category: String,
     @SerializedName("campus") val campus: String,
     @SerializedName("sellerId") val sellerId: String,
-    @SerializedName("sellerName") val sellerName: String,
+    @SerializedName("sellerName") val sellerName: String = "Campus Seller",
     @SerializedName("isVerified") val isVerified: Boolean = true,
     @SerializedName("isWishlisted") val isWishlisted: Boolean = false,
     @SerializedName("imageUrl") val imageUrl: String? = null,

@@ -47,18 +47,18 @@ class LoginFragment : Fragment() {
                 val helper = GoogleAuthHelper(requireContext())
 
                 val result = helper.signInWithGoogle(
-                    webClientId = "YOUR_WEB_CLIENT_ID"
+                    webClientId = "913413814220-vejki7lkbc9tk55pevgd1ismaujn7m87.apps.googleusercontent.com"
                 )
 
                 result.onSuccess { user ->
                     Toast.makeText(
                         requireContext(),
-                        "Google account selected: ${user.email}",
-                        Toast.LENGTH_LONG
+                        "Welcome, ${user.displayName}!",
+                        Toast.LENGTH_SHORT
                     ).show()
 
-                    // Do not navigate to Home yet.
-                    // The ID token must be verified by the backend first.
+                    // Temporary demo navigation only
+                    (activity as? MainActivity)?.navigateToHome()
                 }
 
                 result.onFailure { error ->

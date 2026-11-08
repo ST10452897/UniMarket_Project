@@ -20,6 +20,8 @@ import za.co.unimarket.UniMarketApi
 import za.co.unimarket.adapters.CategoryAdapter
 import za.co.unimarket.adapters.ProductAdapter
 import za.co.unimarket.data.MockData
+import za.co.unimarket.network.ApiClient
+import za.co.unimarket.model.Product
 
 class HomeFragment : Fragment() {
 
@@ -62,7 +64,7 @@ class HomeFragment : Fragment() {
         val rvFreshListings = view.findViewById<RecyclerView>(R.id.rvFreshListings)
         rvFreshListings?.layoutManager = GridLayoutManager(context, 2)
         val productAdapter = ProductAdapter(
-            products = MockData.products,
+            products = mutableListOf(),
             onWishlistClick = { product ->
                 viewLifecycleOwner.lifecycleScope.launch {
                     val localRepo = UniMarketApi.getLocalRepository(requireContext())
@@ -76,6 +78,59 @@ class HomeFragment : Fragment() {
         )
         rvFreshListings?.adapter = productAdapter
 
+        // Fetch real marketplace listings from Firestore via the API
+        viewLifecycleOwner.lifecycleScope.launch {
+            try {
+                val response = ApiClient.apiService.getListings()
+
+                if (response.isSuccessful) {
+                    val listings = response.body().orEmpty()
+
+                    val realProducts = listings.map { listing ->
+                        val category = listing.category.ifBlank { "Textbooks" }
+
+                        val (icon, background) = when (category.lowercase()) {
+                            "electronics" -> R.drawable.ic_laptop to R.color.category_purple_bg
+                            "textbooks", "books" -> R.drawable.ic_book to R.color.category_amber_bg
+                            "clothing" -> R.drawable.ic_shirt to R.color.category_green_bg
+                            else -> R.drawable.ic_box to R.color.category_blue_bg
+                        }
+
+                        val seller = listing.sellerName.ifBlank { "Campus Seller" }
+
+                        Product(
+                            id = listing.id,
+                            title = listing.title,
+                            price = listing.price,
+                            category = category,
+                            location = "${category} · ${listing.campus}",
+                            sellerName = seller,
+                            sellerInitials = seller.take(1).uppercase(),
+                            isVerified = false,
+                            isWishlisted = listing.isWishlisted,
+                            iconRes = icon,
+                            bgColorRes = background
+                        )
+                    }
+
+                    productAdapter.updateList(realProducts)
+                } else {
+                    Toast.makeText(
+                        requireContext(),
+                        "Could not load listings: ${response.code()}",
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
+            } catch (e: Exception) {
+                Toast.makeText(
+                    requireContext(),
+                    "Connection error: ${e.message}",
+                    Toast.LENGTH_LONG
+                ).show()
+            }
+        }
+
+
         // Observe Room DB Flows & Sync Network Data
         val localRepo = UniMarketApi.getLocalRepository(requireContext())
         viewLifecycleOwner.lifecycleScope.launch {
@@ -88,12 +143,12 @@ class HomeFragment : Fragment() {
             }
         }
 
-        viewLifecycleOwner.lifecycleScope.launch {
-            localRepo.getProductsFlow().collect { products ->
-                if (products.isNotEmpty()) {
-                    productAdapter.updateList(products)
-                }
-            }
+       // viewLifecycleOwner.lifecycleScope.launch {
+           // localRepo.getProductsFlow().collect { products ->
+               // if (products.isNotEmpty()) {
+                  //  productAdapter.updateList(products)
+               // }
+            //}
         }
     }
-}
+//}

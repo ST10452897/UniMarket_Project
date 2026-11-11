@@ -17,6 +17,8 @@ import za.co.unimarket.MainActivity
 import za.co.unimarket.R
 import za.co.unimarket.UniMarketApi
 import za.co.unimarket.auth.GoogleAuthHelper
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.GoogleAuthProvider
 class LoginFragment : Fragment() {
 
     override fun onCreateView(
@@ -50,16 +52,39 @@ class LoginFragment : Fragment() {
                     webClientId = "913413814220-vejki7lkbc9tk55pevgd1ismaujn7m87.apps.googleusercontent.com"
                 )
 
-                result.onSuccess { user ->
-                    Toast.makeText(
-                        requireContext(),
-                        "Welcome, ${user.displayName}!",
-                        Toast.LENGTH_SHORT
-                    ).show()
 
-                    // Temporary demo navigation only
-                    (activity as? MainActivity)?.navigateToHome()
+                result.onSuccess { user ->
+                    val credential = GoogleAuthProvider.getCredential(
+                        user.idToken,
+                        null
+                    )
+
+                    FirebaseAuth.getInstance()
+                        .signInWithCredential(credential)
+                        .addOnCompleteListener { task ->
+                            if (!isAdded) return@addOnCompleteListener
+
+                            if (task.isSuccessful) {
+                                val firebaseUser = FirebaseAuth.getInstance().currentUser
+
+                                Toast.makeText(
+                                    requireContext(),
+                                    "Welcome, ${firebaseUser?.displayName ?: user.displayName}!",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+
+                                // Navigate only after Firebase authentication succeeds
+                                (activity as? MainActivity)?.navigateToHome()
+                            } else {
+                                Toast.makeText(
+                                    requireContext(),
+                                    "Firebase login failed: ${task.exception?.localizedMessage}",
+                                    Toast.LENGTH_LONG
+                                ).show()
+                            }
+                        }
                 }
+
 
                 result.onFailure { error ->
                     Toast.makeText(

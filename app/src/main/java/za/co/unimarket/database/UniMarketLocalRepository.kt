@@ -82,11 +82,7 @@ class UniMarketLocalRepository(
     // ----------------------------------------------------
     fun getProductsFlow(): Flow<List<Product>> {
         return productDao.getAllProductsFlow().map { entities ->
-            if (entities.isEmpty()) {
-                MockData.products
-            } else {
-                entities.map { it.toDomain() }
-            }
+            entities.map { it.toDomain() }
         }
     }
 

@@ -4,44 +4,55 @@
 
 UniMarket is an Android marketplace application designed to help university students discover, buy and sell second-hand items within their campus community.
 
-## Technologies
+Technologies Used
 
-- Kotlin and XML – Android application
-- Android Studio – Development environment
-- ASP.NET Core Web API – Backend integration
-- Google Firebase Firestore – NoSQL database
-- Room – Local database
-- GitHub – Version control and collaboration
+Kotlin & XML — Android application
 
-## Features
+ASP.NET Core Web API (C#) — Backend
 
-The application includes marketplace browsing, product categories, search and filtering, wishlist, messaging screens, authentication screens and settings.
+Google Firestore — Database
 
-The project also includes English and Sepedi language support and saved settings.
+Firebase Authentication — Google Sign-In
 
-**Integration status:** Features relying on backend authentication, Google SSO, online messaging, synchronisation and push notifications must be verified against the final integrated build before being described as fully operational.
+Retrofit — API communication
 
-## How to Run
+GitHub — Version control
 
-1. Clone this GitHub repository.
-2. Open the Android project in Android Studio.
-3. Allow Gradle to sync.
-4. Build the application.
-5. Run it on an Android emulator or physical Android device.
+Main Features
 
-Online features require a configured, accessible API.
+Google Sign-In using Firebase Authentication
+
+Home screen with Fresh Listings
+
+Browse marketplace products
+
+Filter listings by category
+
+Retrieve real product data from Firestore through the API
+
+How to Run
+
+Clone the repository.
+
+Open the Android project in Android Studio.
+
+Configure Firebase and the API connection.
+
+Start the ASP.NET Core backend.
+
+Build and run the Android application.
 
 ## Development Team
 
-- Member 1: Android integration, authentication and navigation
-- Member 2: ASP.NET Core API and Firestore
-- Member 3: Google SSO, Room synchronisation and notifications
-- Member 4: Settings, Sepedi translation and language switching
-- Member 5: GitHub Actions, testing, documentation and release preparation
+- Karabo Rasetsoke: Android integration, authentication and navigation
+- Gutshwa Magagula: ASP.NET Core API and Firestore
+- Ayabonga Hadebe: Google SSO, Room synchronisation and notifications
+- Zinhle Matshiane: Settings, Sepedi translation and language switching
+- Morongoa Kopase: GitHub Actions, testing, documentation and release preparation
 
 ## Video Demonstration
 
-Video link: [Add link when available]
+Video link: https://youtu.be/DbYixYYRiy0
 
 ## Release Notes
 

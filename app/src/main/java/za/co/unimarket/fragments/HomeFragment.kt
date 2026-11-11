@@ -85,7 +85,11 @@ class HomeFragment : Fragment() {
 
                 if (response.isSuccessful) {
                     val listings = response.body().orEmpty()
-
+                    Toast.makeText(
+                        requireContext(),
+                        "API SUCCESS: ${listings.size} listings received",
+                        Toast.LENGTH_LONG
+                    ).show()
                     val realProducts = listings.map { listing ->
                         val category = listing.category.ifBlank { "Textbooks" }
 
@@ -96,8 +100,7 @@ class HomeFragment : Fragment() {
                             else -> R.drawable.ic_box to R.color.category_blue_bg
                         }
 
-                        val seller = listing.sellerName.ifBlank { "Campus Seller" }
-
+                        val seller = listing.sellerName?.takeIf { it.isNotBlank() } ?: "Campus Seller"
                         Product(
                             id = listing.id,
                             title = listing.title,

@@ -68,9 +68,8 @@ abstract class AppDatabase : RoomDatabase() {
             db.categoryDao().insertCategories(
                 MockData.categories.map { CategoryEntity.fromDomain(it) }
             )
-            db.productDao().insertProducts(
-                MockData.products.map { ProductEntity.fromDomain(it) }
-            )
+            // Product listings will come from the UniMarket API.
+// Do not insert sample products into the local database.
             db.messageDao().insertMessages(
                 MockData.messages.map { MessageEntity.fromDomain(it) }
             )

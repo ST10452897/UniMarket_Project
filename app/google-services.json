@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "913413814220",
+    "project_id": "unimarket-app-466da",
+    "storage_bucket": "unimarket-app-466da.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:913413814220:android:9ed4cf40d46a5ff268cf69",
+        "android_client_info": {
+          "package_name": "za.co.unimarket"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "913413814220-q3pqfo3b47k6bopvfnk6nqvslou2qgdb.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "za.co.unimarket",
+            "certificate_hash": "981c5ef25cfdb052432b9c8037f097e79eae7973"
+          }
+        },
+        {
+          "client_id": "913413814220-vejki7lkbc9tk55pevgd1ismaujn7m87.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCY_TymJaDHV9lbeEC_z-Ktfu6Tcb_17TI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "913413814220-vejki7lkbc9tk55pevgd1ismaujn7m87.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -291,19 +291,21 @@ class UniMarketRepository(
     // Helper converters
     private fun dtoToProduct(dto: ListingDto): Product {
         val (icon, bg) = getCategoryIcons(dto.category)
+        val seller = dto.sellerName?.takeIf { it.isNotBlank() } ?: "Campus Seller"
         return Product(
             id = dto.id,
             title = dto.title,
             price = dto.price,
             category = dto.category,
             location = "${dto.category} · ${dto.campus}",
-            sellerName = dto.sellerName,
-            sellerInitials = dto.sellerName.take(1),
+            sellerName = seller,
+            sellerInitials = seller.take(1).uppercase(),
             isVerified = dto.isVerified,
             isWishlisted = dto.isWishlisted,
             iconRes = icon,
             bgColorRes = bg
         )
+
     }
 
     private fun dtoToCategoryItem(dto: CategoryDto): CategoryItem {
